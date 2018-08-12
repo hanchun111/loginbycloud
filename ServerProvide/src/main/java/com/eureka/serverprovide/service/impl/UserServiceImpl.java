@@ -36,4 +36,17 @@ public class UserServiceImpl implements IUserService {
     public int insertUser(User user) {
         return userDao.insertUser(user);
     }
+
+    @Override
+    public boolean login(String userId, String password){
+
+        User user = new User();
+
+        user = userDao.findUser(userId);
+
+        if(user.getUserPwd().equals(password))
+            return true;
+        return false;
+
+    }
 }

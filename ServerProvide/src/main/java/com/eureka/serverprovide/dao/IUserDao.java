@@ -22,4 +22,6 @@ public interface IUserDao {
     List<User> findAllUsers();
 
     int insertUser(User user);
+
+
 }

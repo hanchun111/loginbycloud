@@ -57,4 +57,6 @@ public class UserDaoImpl implements IUserDao {
         return jdbcTemplate.update(execSQL , new Object[]{user.getUserId(),user.getUserName(),user.getUserSex(),user.getUserAdd(),user.getUserPwd()});
     }
 
+
+
 }

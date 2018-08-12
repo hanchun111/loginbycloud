@@ -21,4 +21,6 @@ public interface IUserService {
     List<User> findAllUsers();
 
     int insertUser(User user);
+
+    boolean login(String userId, String password);
 }
