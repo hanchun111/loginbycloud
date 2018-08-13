@@ -58,10 +58,13 @@ public class UserDaoImpl implements IUserDao {
 
     @Override
     public int insertUser(User user) {
-        // 1.定义SQL语句
-        String execSQL = "insert into user values (?,?,?,?,?)";
-        // 2.执行查询方法
-        return jdbcTemplate.update(execSQL , new Object[]{user.getUserId(),user.getUserName(),user.getUserSex(),user.getUserAdd(),user.getUserPwd()});
+        if(findUser(user.getUserId()) == null) {
+            // 1.定义SQL语句
+            String execSQL = "insert into user values (?,?,?,?,?)";
+            // 2.执行查询方法
+            return jdbcTemplate.update(execSQL , new Object[]{user.getUserId(),user.getUserName(),user.getUserSex(),user.getUserAdd(),user.getUserPwd()});
+        }
+        return 0;
     }
 
 

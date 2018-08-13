@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -40,7 +41,17 @@ public class ServerProvideController {
 
     }
     @GetMapping("/insert")
-    public String insertUser(@RequestParam(value = "UserId" , required = false) String UserId , @RequestParam(value = "UserName" , required = false) String UserName , @RequestParam(value = "UserSex" , required = false) String UserSex , @RequestParam(value = "UserAdd" , required = false) String UserAdd , @RequestParam(value = "UserPwd" , required = false) String UserPwd) {
+    public String insertUser(@RequestParam(value = "UserId" , required = false) String UserId ,
+                             @RequestParam(value = "UserName" , required = false) String UserName ,
+                             @RequestParam(value = "UserSex" , required = false) String UserSex ,
+                             @RequestParam(value = "UserAdd" , required = false) String UserAdd ,
+                             @RequestParam(value = "UserPwd" , required = false) String UserPwd) {
+        if(UserId == null || UserName == null || UserSex == null || UserAdd == null || UserPwd == null) {
+            return "redirect:register";
+        }
+        if(UserId.length() == 0 || UserName.length() == 0 || UserSex.length() == 0 || UserAdd.length() == 0 || UserPwd.length() == 0) {
+            return "redirect:register";
+        }
         User user = new User();
         user.setUserId(UserId);
         user.setUserName(UserName);
@@ -59,9 +70,14 @@ public class ServerProvideController {
         return "redirect:register";
     }
     @PostMapping("/login")
-    public String login(@RequestParam("UserId") String userId, @RequestParam("Password") String password){
-        if(userService.login(userId, password))
+    public String login(@RequestParam("UserId") String userId,
+                        @RequestParam("Password") String password,
+                        HttpServletResponse response) throws Exception{
+        if(userService.login(userId, password)) {
             return "redirect:selectAll";
+        }
+        response.setContentType("text/html;charset=UTF-8");
+        response.getWriter().print("<script language=\"javascript\">alert('账号或密码错误');</script>" );
         return "redirect:index";
 
     }

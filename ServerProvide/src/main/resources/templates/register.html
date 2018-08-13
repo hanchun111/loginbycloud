@@ -1,13 +1,13 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>home</title>
     <link rel="stylesheet" type="text/css" href="css/style.css" />
     <link rel="stylesheet" type="text/css" href="css/body.css"/>
 </head>
-<script type="text/javascript">
-    function register(){
+<script language="JavaScript">
+    function checkInput(){
         var account = $("#UserId").var();
         var name = $("#UserName").var();
         var sex = $("#UserSex").var();
@@ -16,14 +16,14 @@
         if(account != null && name != null && sex != null && pwd != null && add !=null){
             return true;
         }
-        alter("注册信息有误！")
+        alert("注册信息有误！");
         return false;
     }
 </script>
 <body>
 <div class="container">
     <section id="content">
-        <form action="/insert">
+        <form action="/insert" onsubmit="checkInput()">
             <h1>用户注册</h1>
             <div>
                 <input type="text" placeholder="账号" required="" name="UserId" />
@@ -44,7 +44,7 @@
                 <span class="help-block u-errormessage" id="js-server-helpinfo">&nbsp;</span>			</div>
             <div>
                 <!-- <input type="submit" value="Log in" /> -->
-                <input type="submit" value="提交" class="btn btn-primary" onclick="return register()"				id="js-btn-login"/>
+                <input type="submit" value="提交" class="btn btn-primary" onclick="return checkInput()"	 id="js-btn-login"/>
                 <!-- <a href="#">Register</a> -->
             </div>
         </form><!-- form --><!-- button -->
