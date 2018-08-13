@@ -40,13 +40,18 @@ public class UserServiceImpl implements IUserService {
     @Override
     public boolean login(String userId, String password){
 
+        if(userId == null || userId.length()==0 || password == null || password.length() == 0) {
+            return false;
+        }
+
         User user = new User();
-
         user = userDao.findUser(userId);
-
-        if(user.getUserPwd().equals(password))
+        if(user == null) {
+            return false;
+        }
+        if (user.getUserPwd().equals(password)) {
             return true;
+        }
         return false;
-
     }
 }

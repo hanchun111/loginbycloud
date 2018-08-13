@@ -4,6 +4,7 @@ package com.eureka.serverprovide.dao.impl;
 import com.eureka.serverprovide.dao.IUserDao;
 import com.eureka.serverprovide.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -27,14 +28,20 @@ public class UserDaoImpl implements IUserDao {
     private JdbcTemplate jdbcTemplate;
     @Override
     public User findUser(String UserId) {
-        // 1.定义SQL语句
-        String querySQL = "select * from user where UserId = " + UserId;
-        // 2.定义RowMapper
-        RowMapper<User> rowMapper = new BeanPropertyRowMapper<User>(User.class);
-        // 3.执行查询方法
-        User user = jdbcTemplate.queryForObject(querySQL , rowMapper);
-
-        return user;
+        if(UserId!=null && UserId.length()!=0) {
+            // 1.定义SQL语句
+            String querySQL = "select * from user where UserId = " + UserId;
+            // 2.定义RowMapper
+            RowMapper<User> rowMapper = new BeanPropertyRowMapper<User>(User.class);
+            // 3.执行查询方法
+            try{
+                User user = jdbcTemplate.queryForObject(querySQL, rowMapper);
+                return user;
+            }catch(EmptyResultDataAccessException e) {
+                return null;
+            }
+        }
+        return null;
     }
 
     @Override

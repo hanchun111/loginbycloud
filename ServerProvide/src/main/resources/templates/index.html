@@ -5,26 +5,27 @@
     <title>用户登录</title>
     <link rel="stylesheet" type="text/css" href="/css/style.css" />
     <link rel="stylesheet" type="text/css" href="/css/body.css"/>
-</head>
-<script type="text/javascript">
-    function check() {
-        var account = $("#UserId").val();
-        var password = $("#Password").val();
-        if(account != null && password != null) {
+    <script language="JavaScript">
+        function checkInput() {
+            var account = $("#UserId").val();
+            var password = $("#Password").val();
+            if(account == null || password == null) {
+                alert("账号或密码不允许为空！");
+                return false;
+            }
             return true;
-        }
-        alert("账号或密码不允许为空！");
-        return false;
-    };
+        };
 
-    function register() {
-        document.location="/register";
-    }
-</script>
+        function register() {
+            document.location="/register";
+        }
+    </script>
+</head>
+
 <body>
 <div class="container">
     <section id="content">
-        <form method="post" action="/login">
+        <form method="post" action="/login" onsubmit="return checkInput()">
             <h1>用户登录</h1>
             <div>
                 <input type="text" placeholder="账号"  name="UserId" />
@@ -36,7 +37,7 @@
                 <span class="help-block u-errormessage" id="js-server-helpinfo">&nbsp;</span>			</div>
             <div>
                 <!-- <input type="submit" value="Log in" /> -->
-                <input  type="submit" class="btn btn-primary"  value="登录" onclick="return check()" id="js-btn-login"/>
+                <input  type="submit" class="btn btn-primary"  value="登录" id="js-btn-login"/>
 
                 <!-- <a href="#">Register</a> -->
             </div>

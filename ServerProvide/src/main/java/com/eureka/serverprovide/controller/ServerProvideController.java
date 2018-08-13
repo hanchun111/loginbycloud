@@ -60,7 +60,6 @@ public class ServerProvideController {
     }
     @PostMapping("/login")
     public String login(@RequestParam("UserId") String userId, @RequestParam("Password") String password){
-
         if(userService.login(userId, password))
             return "redirect:selectAll";
         return "redirect:index";
